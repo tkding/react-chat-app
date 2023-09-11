@@ -71,7 +71,7 @@ Before you begin, ensure you have met the following requirements:
 ## Usage
 ### method 1 uinsg the link
 
-Access the application via your web browser at [furrya.com](https://chatapp-22a6b.web.app/createpost).
+Access the application via your web browser at [furrya.com](https://chatapp-22a6b.web.app/).
 
 ### method 2 using a shell
 1. Create a Firebase project and set up Firestore as your database.
