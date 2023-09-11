@@ -105,3 +105,42 @@ div a.active {
         margin-left: 0;
     }
 }
+
+/* project title */
+.project-title {
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: left;
+    color: #000000;
+    text-shadow: 2px 2px #ffffff;
+    margin-right: 20px;
+  }
+  
+  .project-title:hover {
+    animation-name: bounce;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(0.8, 0.2, 1, 1);
+  }
+  
+  @keyframes bounce {
+    0% {
+      transform: translateY(0);
+    }
+    
+    50% {
+      transform: translateY(-3px);
+    }
+    
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  .project-title:hover::before {
+    content: "🐱";
+  }
+
+  .project-title:hover::after {
+    content: "🐶";
+  }

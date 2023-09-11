@@ -29,7 +29,7 @@ export const Navbar = () => {
                 </div>
             )}
             
-            <h1 className="web-name"> FurRya</h1>    
+            <h1 className="project-title">FurRya</h1>    
         </div>
     );
 }

@@ -10,7 +10,6 @@ import { addDoc, collection, serverTimestamp, onSnapshot, query, where, orderBy,
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import { ChatProps as ChatPropsI } from "./chat-main";
-import { on } from "events";
 
 interface FormData {
     message: string;
@@ -56,6 +55,9 @@ export const Chat = ({ ChatProps }: ChatProps) => {
             });
             // set message input to empty
             reset();
+
+            const container = document.getElementsByClassName("chat-messages")[0];
+            container && (container.scrollTop = container.scrollHeight);
         } catch (error) {
             console.error("Error adding document: ", error);
         }
@@ -76,11 +78,11 @@ export const Chat = ({ ChatProps }: ChatProps) => {
     return (
         <div className="chat-app">
             <h1>Chat</h1>
-            <div className="messages">
+            <div className="chat-messages">
                 {messages.slice().reverse().map((message) => (
-                    <div key={message.id} className="message-box">
+                    <div key={message.id} className="message">
                         <span className="user">{message.username}: </span> 
-                        <span className="message">{message.message}</span>
+                        <span className="message-text">{message.message}</span>
                     </div>
                 ))}
             </div>

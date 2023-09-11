@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
-import { Post as IPost } from '../../App'
+import { AppContext, Post as IPost } from '../../App'
 
 import { addDoc, getDocs, collection, query, where, deleteDoc, doc } from "firebase/firestore";
 import { auth, db } from "../../config/firebase";
@@ -18,16 +18,16 @@ interface Likes {
 export const Post = (props: PostProps) => {
     const { post } = props;
     const [ user ] = useAuthState(auth);
-    const [ likes, setLikes ] = useState<Likes[] | null>(null);
+    // const [ likes, setLikes ] = useState<Likes[] | null>(null);
+    const { likes, setLikes } = useContext(AppContext);
     
     const likesRef = collection(db, "likes");
-    
-    const likesDoc = query(likesRef, where("postId", "==", post.id));
-
-    const getLikes = async () => {
-        const data = await getDocs(likesDoc);
-        setLikes(data.docs.map(doc => ({userId: doc.data().userId, id: doc.id})) as Likes[] );
-    }
+    // const likesDoc = query(likesRef, where("postId", "==", post.id));
+    // const getLikes = async () => {
+    //     const data = await getDocs(likesDoc);
+    //     setLikes(data.docs.map(doc => ({userId: doc.data().userId, id: doc.id})) as Likes[] );
+    // }
+    let hasLiked =  likes && likes.some((like) => like.userId === user?.uid && like.postId === post.id);
 
     const addLike = async () => {
         try {
@@ -38,8 +38,9 @@ export const Post = (props: PostProps) => {
 
             if( user ){
                 setLikes((prev) => 
-                    prev ? [...prev, {userId: user.uid, id: newDoc.id}] : [{userId: user.uid, id: newDoc.id}]
+                    prev ? [...prev, {userId: user.uid, postId: post.id, id: newDoc.id}] : [{userId: user.uid, postId: post.id, id: newDoc.id}]
                 );
+                hasLiked = true;
             }
         }
         catch (err) {
@@ -63,6 +64,8 @@ export const Post = (props: PostProps) => {
                 setLikes((prev) => 
                     prev ? prev.filter((like) => like.id !== likeId) : []
                 );
+
+                hasLiked = false;
             }
         }
         catch (err) {
@@ -70,11 +73,8 @@ export const Post = (props: PostProps) => {
         }
     }
 
-
-    const hasLiked =  likes?.find((like) => like.userId === user?.uid);
-
     useEffect (() => {
-        getLikes();
+        // getLikes();
     }, []);
 
     return (
@@ -95,7 +95,7 @@ export const Post = (props: PostProps) => {
                         <button onClick={addLike}> 👍like </button> 
                     )}
                 
-                {likes && <p> Likes: {likes.length} </p>}
+                {likes && <p> Likes: {likes.filter((like) => like.postId === post.id).length} </p>}
             </div>
         </div>
     );

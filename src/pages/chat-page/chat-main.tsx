@@ -1,6 +1,6 @@
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../config/firebase";
-import React, { useRef, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Auth } from "../../components/Auth";
 import { Chat } from "./Chat";
 import { AppContext } from "../../App";
@@ -47,21 +47,22 @@ export const ChatMain = () => {
 
     else{
         return (
-        <>
+        <div className="chat-room-container">
             {room ? (
-                <div>
-                    <h1>Room: {room}</h1>
+                <div className="in-chat-room-container">
+                    <h1 title="room-title">Room: {room}</h1>
                     <button onClick={() => setRoom(null)}>Leave Room</button>
                     <Chat ChatProps={{ room }} />
                 </div>
             ) : (
                 <div> 
-                    <label>Select Room Number(1-9):</label>
+                    <label>Select Room Number(1-9): </label>
                     {/* <input type="number" ref={roomInputRef} min={0} max={9} /> */}
                     {/* <button onClick={() => roomInputRef.current && setRoom(parseInt(roomInputRef.current.value))}>
                         Enter Room
                     </button> */}
                     <input 
+                        id="room-input"
                         type="number" 
                         value={newRoom} 
                         onChange={handleRoomChange}
@@ -74,7 +75,7 @@ export const ChatMain = () => {
                     </button>
                 </div>
             )} 
-        </>
+        </div>
         )
     };    
 };

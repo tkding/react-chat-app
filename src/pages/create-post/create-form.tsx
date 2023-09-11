@@ -1,4 +1,4 @@
-import React from "react";
+import { useContext } from "react";
 
 // form hook,  yup, resolver
 import { useForm } from "react-hook-form";
@@ -14,6 +14,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 import { useNavigate } from "react-router-dom";
 
+import { Post as IPost, AppContext } from "../../App";
+import { time } from "console";
+
 interface FormData {
     title: string;
     description: string;
@@ -22,6 +25,7 @@ interface FormData {
 export const CreateForm = () => {
     const [ user ] = useAuthState(auth);
     const navigate = useNavigate();
+    const { postsList, setPostsList } = useContext(AppContext);
 
     // yup validation 
     const schema = yup.object().shape({
@@ -42,12 +46,29 @@ export const CreateForm = () => {
 
     // submit handler
     const onCreatePost = async (data: FormData) => {
-        await addDoc(postsRef, {
+        const newDoc = await addDoc(postsRef, {
             ...data,
             username: user?.displayName,
             userId: user?.uid,
-            createAt: serverTimestamp(),
+            createAt: serverTimestamp()
         });
+        
+        // Update postsList
+        if (user) {
+            setPostsList((prev) => {
+                const newPost = {
+                    ...data,
+                    username: user.displayName || "", // Assign an empty string if displayName is null
+                    userId: user.uid || "", // Assign an empty string if uid is null
+                    createAt: serverTimestamp(),
+                    id: newDoc.id,
+                };
+            
+                return prev ? [newPost, ...prev] : [newPost];
+            });
+        }
+
+
         navigate("/");
     };
     
