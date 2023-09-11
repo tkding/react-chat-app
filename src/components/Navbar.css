@@ -1,0 +1,146 @@
+/* Sytles for container */
+.navbar {
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    color: white;
+    font-size: 18px;
+}
+
+/* Styles for left link */
+.left-links{
+    display: flex;
+    align-items: left;
+    margin-left: 20px;
+}
+
+/* Styles for link */
+div a {
+    color: white;
+    text-decoration: underline;
+    margin-right:20px;
+    transition: color 0.3s, text-decoration 0.3s;
+}
+
+/* Styles for link hover */
+div a:hover {
+    color: gray;
+    cursor: pointer;
+}
+
+/* Styles for active link */
+div a.active {
+    color: gray;
+    text-decoration: none;
+}
+
+/* Styles for right content */
+ /* make it stick to web-name */
+.right-content {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    gap:5px;
+}
+
+
+/*styles for the button */
+.sign-out-btn {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
+}
+
+/* Styles for button hover */
+.sign-out-btn:hover {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
+
+/* styles for log-in-text */
+.log-in-text {
+    color: white;
+    font-size: 14px;
+    align-self: center;
+    margin-right: 5px;
+}
+
+/* Styles for profile-pic */
+.profile-pic {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
+
+/* Styles for web-name */
+.web-name {
+    font-size: 25px;
+    font-weight: bold;
+    margin-right: 20px;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-left: 0;
+    }
+
+    .right-content {
+        margin-top: 10px;
+        margin-left: 0;
+    }
+
+    .web-name {
+        text-align: center;
+        margin-top: 10px;
+        margin-right: 0;
+        margin-left: 0;
+    }
+}
+
+/* project title */
+.project-title {
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: left;
+    color: #000000;
+    text-shadow: 2px 2px #ffffff;
+    margin-right: 20px;
+  }
+  
+  .project-title:hover {
+    animation-name: bounce;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: cubic-bezier(0.8, 0.2, 1, 1);
+  }
+  
+  @keyframes bounce {
+    0% {
+      transform: translateY(0);
+    }
+    
+    50% {
+      transform: translateY(-3px);
+    }
+    
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  .project-title:hover::before {
+    content: "🐱";
+  }
+
+  .project-title:hover::after {
+    content: "🐶";
+  }
