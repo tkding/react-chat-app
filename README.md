@@ -10,7 +10,6 @@ This is a React web application that allows users to interact with a real-time m
 - [Usage](#usage)
 - [Page Details](#page-details)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
