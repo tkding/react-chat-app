@@ -1,4 +1,4 @@
-# React Web Application README
+# React Web Application FurRya.com
 
 This is a React web application that allows users to interact with a real-time messaging system and post and view content. The application is built using React, JavaScript, CSS, HTML, Firebase, and Firestore. Users are required to sign in with their Google account to access the functionality.
 
